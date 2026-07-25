@@ -1,0 +1,77 @@
+"use client";
+import { useState } from "react";
+import ProductCard from "@/components/ProductCard";
+import { products } from "@/data/products";
+
+const categories = [
+  "All",
+  "Short Kurtis",
+  "Long Kurtis",
+  "Under ₹999",
+  "Best Sellers",
+  "New Arrivals",
+];
+
+export default function ShopPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProducts = products.filter((p) => {
+    if (activeCategory === "All") return true;
+    if (activeCategory === "Short Kurtis") return p.category === "short";
+    if (activeCategory === "Long Kurtis") return p.category === "long";
+    if (activeCategory === "Under ₹999") return p.price < 1000;
+    if (activeCategory === "Best Sellers") return p.badge === "Best Seller";
+    if (activeCategory === "New Arrivals") return p.badge === "New Arrival";
+    return true;
+  });
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="text-center mb-10">
+        <p
+          style={{ color: "rgba(201,168,76,0.6)", letterSpacing: "0.3em" }}
+          className="text-xs uppercase mb-2"
+        >
+          Our Products
+        </p>
+        <h1
+          style={{ fontFamily: "var(--font-serif)" }}
+          className="text-4xl text-white"
+        >
+          Shop Chikankari Kurtis
+        </h1>
+      </div>
+
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-2 justify-center mb-10">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            style={
+              activeCategory === cat
+                ? { backgroundColor: "var(--color-gold)", color: "var(--color-brand-black)" }
+                : { border: "1px solid rgba(201,168,76,0.3)", color: "rgba(255,255,255,0.7)" }
+            }
+            className="px-5 py-2 rounded-full text-sm font-medium transition-all hover:opacity-90"
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Product Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+
+      {filteredProducts.length === 0 && (
+        <div className="text-center py-20 text-white/50">
+          <p className="text-lg">No products found in this category.</p>
+        </div>
+      )}
+    </div>
+  );
+}
