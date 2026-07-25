@@ -19,6 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nawabiaura.com"),
   title: "Nawabi Aura | Elegant Chikankari Kurtis for Daily & Office Wear",
   description:
     "Shop elegant chikankari kurtis from Nawabi Aura. Discover short kurtis, long kurtis, daily wear, office wear, and premium ethnic styles at affordable prices.",
@@ -41,9 +42,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Nawabi Aura | Elegant Chikankari Kurtis",
-    description: "Dress Like Royalty. Feel the Aura.",
+    description:
+      "Dress Like Royalty. Feel the Aura. Shop elegant chikankari kurtis handcrafted in Lucknow — daily wear, office wear, and festive styles.",
+    url: "https://nawabiaura.com",
+    siteName: "Nawabi Aura",
     type: "website",
-    images: [{ url: "/icons/icon-512.png" }],
+    locale: "en_IN",
+    images: [
+      {
+        url: "/logo.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "Nawabi Aura - Royalty the Lucknowi Way",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nawabi Aura | Elegant Chikankari Kurtis",
+    description: "Dress Like Royalty. Feel the Aura.",
+    images: ["/logo.jpg"],
   },
   other: {
     "mobile-web-app-capable": "yes",
