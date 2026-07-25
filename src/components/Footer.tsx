@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 const instagramHandle = "nawabiaura";
 
 export default function Footer() {

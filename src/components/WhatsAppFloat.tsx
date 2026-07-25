@@ -1,4 +1,4 @@
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'd like to order from Nawabi Aura.`;
 
 export default function WhatsAppFloat() {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import HomeShopSection from "@/components/HomeShopSection";
 import { reviews } from "@/data/products";
 
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 const instagramHandle = "nawabiaura";
 
 const benefits = [

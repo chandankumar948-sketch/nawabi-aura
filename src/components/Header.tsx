@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'd like to order from Nawabi Aura.`;
 
 const navLinks = [

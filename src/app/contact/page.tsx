@@ -1,4 +1,4 @@
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 const instagramHandle = "nawabiaura";
 
 const faqs = [
@@ -86,7 +86,7 @@ export default function ContactPage() {
 
         {/* Phone */}
         <a
-          href="tel:+917437063520"
+          href="tel:+917483706352"
           style={{
             backgroundColor: "var(--color-brand-dark)",
             border: "1px solid rgba(201,168,76,0.1)",
@@ -115,7 +115,7 @@ export default function ContactPage() {
           <h3 className="font-semibold text-white mb-1">Call Us</h3>
           <p className="text-white/50 text-sm">Tap to call directly</p>
           <p style={{ color: "var(--color-gold)" }} className="text-sm mt-2 font-medium">
-            +91 74370 63520
+            +91 7483706352
           </p>
         </a>
       </div>

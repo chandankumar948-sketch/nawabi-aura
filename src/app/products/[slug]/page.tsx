@@ -7,7 +7,7 @@ export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
 }
 
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 
 const sizes = ["S", "M", "L", "XL"];
 

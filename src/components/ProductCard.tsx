@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/data/products";
 
-const whatsappNumber = "917437063520";
+const whatsappNumber = "917483706352";
 
 interface ProductCardProps {
   product: Product;
