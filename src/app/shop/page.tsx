@@ -7,6 +7,7 @@ const categories = [
   "All",
   "Short Kurtis",
   "Long Kurtis",
+  "Palazzo Sets",
   "Under ₹999",
   "Best Sellers",
   "New Arrivals",
@@ -19,6 +20,7 @@ export default function ShopPage() {
     if (activeCategory === "All") return true;
     if (activeCategory === "Short Kurtis") return p.category === "short";
     if (activeCategory === "Long Kurtis") return p.category === "long";
+    if (activeCategory === "Palazzo Sets") return p.category === "palazzo";
     if (activeCategory === "Under ₹999") return p.price < 1000;
     if (activeCategory === "Best Sellers") return p.badge === "Best Seller";
     if (activeCategory === "New Arrivals") return p.badge === "New Arrival";

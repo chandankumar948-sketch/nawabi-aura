@@ -78,6 +78,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/shop?category=palazzo" className="hover:text-[var(--color-gold)] transition-colors">
+                  Palazzo Sets
+                </Link>
+              </li>
+              <li>
                 <Link href="/collections" className="hover:text-[var(--color-gold)] transition-colors">
                   Collections
                 </Link>

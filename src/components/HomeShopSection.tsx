@@ -8,6 +8,7 @@ const TABS = [
   { label: "All", filter: (p: Product) => true },
   { label: "Short Kurtis", filter: (p: Product) => p.category === "short" },
   { label: "Long Kurtis", filter: (p: Product) => p.category === "long" },
+  { label: "Palazzo Sets", filter: (p: Product) => p.category === "palazzo" },
   { label: "Under ₹999", filter: (p: Product) => p.price < 1000 },
   { label: "Best Sellers", filter: (p: Product) => p.badge === "Best Seller" },
   { label: "New Arrivals", filter: (p: Product) => p.badge === "New Arrival" },

@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nawabi Aura
 
-## Getting Started
+Storefront for Nawabi Aura, a Lucknowi Chikankari clothing brand. Built with Next.js (App Router) and statically exported for deployment to GitHub Pages at [nawabiaura.com](https://nawabiaura.com). There's no cart/checkout — every "Order" button opens a prefilled WhatsApp message.
 
-First, run the development server:
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Product catalog
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Products live in `src/data/products.ts` as a typed array (`Product[]`), covering three categories: `short` and `long` kurtis, and `palazzo` (kurta + palazzo + dupatta sets). `catalog-sample.csv` mirrors the same rows in CSV form for bulk editing/import — when you add or edit products, keep both in sync.
 
-## Learn More
+Product images are either remote URLs or local files under `public/images/<category>/`. Local images should already be cropped to a 3:4 aspect ratio to match the product card/detail layout.
 
-To learn more about Next.js, take a look at the following resources:
+The `reviews` array (same file) powers the homepage testimonials and `/reviews` page. It's empty by default — only add reviews for products that currently exist in `products`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Adding a new category (beyond short/long/palazzo) means updating the `Product.category` union and the filters in `src/app/shop/page.tsx`, `src/components/HomeShopSection.tsx`, and the footer link in `src/components/Footer.tsx`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Service worker
 
-## Deploy on Vercel
+`public/sw.js` is a PWA cache, registered by `src/components/PWARegister.tsx` **only in production**. It caches JS/CSS chunks cache-first, which is safe in production because Next's static export gives every chunk a content hash — a new build gets new URLs.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+In dev, chunk URLs aren't hashed that way, so a registered service worker would keep serving stale JS across reloads (including hard refreshes, which don't touch the Cache Storage API). `PWARegister.tsx` unregisters any existing service worker instead of registering one whenever `NODE_ENV !== "production"`. Don't remove that guard, and don't bump into it by testing PWA/offline behavior against `next dev` — build (`npm run build`) and serve `out/` if you need to test the real caching behavior.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Build & deploy
+
+```bash
+npm run build
+```
+
+Outputs a static site to `out/`. Pushing to `main` runs `.github/workflows/*.yml`, which builds and deploys `out/` to GitHub Pages automatically.
+
+## Ordering flow
+
+All "Order on WhatsApp" buttons send to the number hardcoded as `whatsappNumber`/`WA_NUMBER` in `src/components/Header.tsx`, `Footer.tsx`, `ProductCard.tsx`, `HomeShopSection.tsx`, `WhatsAppFloat.tsx`, and `src/app/{page,contact,products/[slug],shipping}/page.tsx`. If the number ever changes, update it in all of those.

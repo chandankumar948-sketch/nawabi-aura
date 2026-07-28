@@ -9,8 +9,6 @@ export function generateStaticParams() {
 
 const whatsappNumber = "917483706352";
 
-const sizes = ["S", "M", "L", "XL"];
-
 export default async function ProductPage({
   params,
 }: {
@@ -20,7 +18,7 @@ export default async function ProductPage({
   const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
 
-  const whatsappMessage = `Hi! I'd like to order:\n\n*Product:* ${product.name}\n*Price:* ₹${product.price}\n*Size:* (please specify S/M/L/XL)\n\nPlease confirm availability.`;
+  const whatsappMessage = `Hi! I'd like to order:\n\n*Product:* ${product.name}\n*Price:* ₹${product.price}\n*Size:* (please specify ${product.sizes.join("/")})\n\nPlease confirm availability.`;
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
@@ -94,7 +92,7 @@ export default async function ProductPage({
                 Select Size (mention in WhatsApp)
               </h3>
               <div className="flex gap-2">
-                {sizes.map((size) => (
+                {product.sizes.map((size) => (
                   <div
                     key={size}
                     style={{ border: "1px solid rgba(201,168,76,0.3)" }}
@@ -133,6 +131,9 @@ export default async function ProductPage({
                 { label: "Fabric", value: product.fabric },
                 { label: "Work", value: product.work },
                 { label: "Fit", value: product.fit },
+                ...(product.setIncludes
+                  ? [{ label: "Set Includes", value: product.setIncludes }]
+                  : []),
                 { label: "Occasion", value: product.occasion },
                 { label: "Care", value: product.care },
                 { label: "Sizes", value: product.sizes.join(", ") },
