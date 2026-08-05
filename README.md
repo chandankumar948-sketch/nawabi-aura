@@ -37,4 +37,15 @@ Outputs a static site to `out/`. Pushing to `main` runs `.github/workflows/*.yml
 
 ## Ordering flow
 
-All "Order on WhatsApp" buttons send to the number hardcoded as `whatsappNumber`/`WA_NUMBER` in `src/components/Header.tsx`, `Footer.tsx`, `ProductCard.tsx`, `HomeShopSection.tsx`, `WhatsAppFloat.tsx`, and `src/app/{page,contact,products/[slug],shipping}/page.tsx`. If the number ever changes, update it in all of those.
+All "Order on WhatsApp" buttons go through `src/lib/whatsapp.ts` (the number, `wa.me` link builder, and click-tracking helper) plus the shared `src/components/WhatsAppLink.tsx` / `WhatsAppIcon.tsx` components. If the number ever changes, update `WHATSAPP_NUMBER` in `src/lib/whatsapp.ts` only.
+
+Every WhatsApp CTA fires a `whatsapp_order_click` GA4 event and a `WhatsAppOrderClick` Meta Pixel custom event (tagged with a `source`, e.g. `header_desktop`, `product_card`, `float_button`) — see the PRD's analytics requirements. Both are no-ops until you set the env vars below.
+
+### Analytics setup
+
+Set these in `.env.local` (see `.env.local.example`) before running `npm run build` — they're `NEXT_PUBLIC_*` so they get inlined into the static export at build time:
+
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` — GA4 Measurement ID (e.g. `G-XXXXXXX`)
+- `NEXT_PUBLIC_META_PIXEL_ID` — Meta Pixel ID
+
+Without them, `src/components/Analytics.tsx` renders nothing and `trackWhatsAppClick` silently no-ops.

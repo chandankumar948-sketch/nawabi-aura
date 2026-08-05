@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import PWARegister from "@/components/PWARegister";
+import Analytics from "@/components/Analytics";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -87,6 +88,7 @@ export default function RootLayout({
         <Footer />
         <WhatsAppFloat />
         <PWARegister />
+        <Analytics />
       </body>
     </html>
   );

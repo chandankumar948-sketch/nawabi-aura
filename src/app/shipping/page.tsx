@@ -1,3 +1,5 @@
+import WhatsAppLink from "@/components/WhatsAppLink";
+
 const sections = [
   {
     title: "Shipping & Delivery",
@@ -134,14 +136,13 @@ export default function ShippingPage() {
 
       <div className="mt-10 text-center">
         <p className="text-white/50 text-sm mb-4">Still have questions?</p>
-        <a
-          href="https://wa.me/917483706352?text=Hi, I have a question about shipping and returns."
-          target="_blank"
-          rel="noopener noreferrer"
+        <WhatsAppLink
+          message="Hi, I have a question about shipping and returns."
+          source="shipping_page"
           className="btn-gold inline-flex items-center gap-2"
         >
           Ask on WhatsApp
-        </a>
+        </WhatsAppLink>
       </div>
     </div>
   );
