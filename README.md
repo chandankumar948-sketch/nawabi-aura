@@ -49,3 +49,11 @@ Set these in `.env.local` (see `.env.local.example`) before running `npm run bui
 - `NEXT_PUBLIC_META_PIXEL_ID` — Meta Pixel ID
 
 Without them, `src/components/Analytics.tsx` renders nothing and `trackWhatsAppClick` silently no-ops.
+
+## WhatsApp Business catalogue
+
+The WhatsApp Business account (`917483706352`) has its Business Profile and Catalogue configured directly in WhatsApp Web (Business Tools → Business profile / Catalogue) — this is account configuration, not code, so it isn't in this repo.
+
+All 20 products in `src/data/products.ts` are mirrored there manually: image, price, sale price, description, and a link back to `https://nawabiaura.com/products/<slug>` for each. **There's no sync between the two** — if a product's price, description, or availability changes in code, update the matching WhatsApp catalogue item by hand, or customers will see stale info when they tap through from a WhatsApp chat. New products need to be added to the WhatsApp catalogue the same way (Business Tools → Catalogue → Add new item) after they're added to `products.ts`.
+
+WhatsApp's India compliance form (legal name, business address, customer care contact, grievance officer) was filed once during setup — required by law to keep current if any of it changes.
