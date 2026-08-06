@@ -133,10 +133,10 @@ export default function Footer() {
         >
           <p>© 2025 Nawabi Aura. All rights reserved.</p>
           <div className="flex gap-4">
-            <Link href="/shipping" className="hover:text-[var(--color-gold)] transition-colors">
+            <Link href="/privacy" className="hover:text-[var(--color-gold)] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/shipping" className="hover:text-[var(--color-gold)] transition-colors">
+            <Link href="/terms" className="hover:text-[var(--color-gold)] transition-colors">
               Terms &amp; Conditions
             </Link>
           </div>
