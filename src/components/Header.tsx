@@ -8,7 +8,6 @@ import WhatsAppLink from "./WhatsAppLink";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/collections", label: "Collections" },
   { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
@@ -31,7 +30,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt="Nawabi Aura"
               width={64}
               height={64}

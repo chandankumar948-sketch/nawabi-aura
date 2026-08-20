@@ -5,6 +5,7 @@ import Image from "next/image";
 import { products, Product } from "@/data/products";
 import { buildWhatsAppLink, trackWhatsAppClick } from "@/lib/whatsapp";
 import WhatsAppIcon from "./WhatsAppIcon";
+import CardAltFrame from "./CardAltFrame";
 
 const TABS = [
   { label: "All", filter: (p: Product) => true },
@@ -37,12 +38,19 @@ function ShopCard({ product }: { product: Product }) {
       {/* Image */}
       <Link href={`/products/${product.slug}`} className="relative aspect-[3/4] overflow-hidden block">
         <Image
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
+        {/* Alternate frame: hover-swap on pointer devices, on-screen rotation on touch */}
+        {product.images[1] && (
+          <CardAltFrame
+            src={product.images[1]}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          />
+        )}
         {product.badge && (
           <span
             style={{ backgroundColor: "var(--color-gold)", color: "var(--color-brand-black)" }}
@@ -200,12 +208,6 @@ export default function HomeShopSection() {
             className="border font-semibold px-8 py-3 rounded-full hover:bg-[var(--color-gold)] hover:text-[var(--color-brand-black)] transition-all text-sm"
           >
             Browse Full Catalog
-          </Link>
-          <Link
-            href="/collections"
-            className="text-white/50 hover:text-white text-sm transition-colors"
-          >
-            View Collections →
           </Link>
         </div>
       </div>

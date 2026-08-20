@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Product } from "@/data/products";
 import WhatsAppIcon from "./WhatsAppIcon";
 import WhatsAppLink from "./WhatsAppLink";
+import CardAltFrame from "./CardAltFrame";
 
 interface ProductCardProps {
   product: Product;
@@ -18,12 +19,19 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       <Link href={`/products/${product.slug}`} className="block relative aspect-[3/4] overflow-hidden">
         <Image
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 50vw, 33vw"
         />
+        {/* Alternate frame: hover-swap on pointer devices, on-screen rotation on touch */}
+        {product.images[1] && (
+          <CardAltFrame
+            src={product.images[1]}
+            sizes="(max-width: 768px) 50vw, 33vw"
+          />
+        )}
         {product.badge && (
           <span
             style={{ backgroundColor: "var(--color-gold)", color: "var(--color-brand-black)" }}

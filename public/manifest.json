@@ -28,11 +28,6 @@
       "name": "Shop Now",
       "url": "/shop",
       "description": "Browse all chikankari kurtis"
-    },
-    {
-      "name": "Collections",
-      "url": "/collections",
-      "description": "View curated collections"
     }
   ]
 }

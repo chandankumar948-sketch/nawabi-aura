@@ -81,11 +81,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/collections" className="hover:text-[var(--color-gold)] transition-colors">
-                  Collections
-                </Link>
-              </li>
-              <li>
                 <Link href="/reviews" className="hover:text-[var(--color-gold)] transition-colors">
                   Reviews
                 </Link>

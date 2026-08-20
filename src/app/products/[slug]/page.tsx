@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/data/products";
 import { notFound } from "next/navigation";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import WhatsAppLink from "@/components/WhatsAppLink";
+import ProductGallery from "@/components/ProductGallery";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -37,27 +37,12 @@ export default async function ProductPage({
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div
-            style={{ backgroundColor: "var(--color-brand-dark)" }}
-            className="relative aspect-[3/4] rounded-2xl overflow-hidden"
-          >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover"
-              priority
-            />
-            {product.badge && (
-              <span
-                style={{ backgroundColor: "var(--color-gold)", color: "var(--color-brand-black)" }}
-                className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 rounded-full"
-              >
-                {product.badge}
-              </span>
-            )}
-          </div>
+          {/* Product Images */}
+          <ProductGallery
+            images={product.images}
+            alt={product.name}
+            badge={product.badge}
+          />
 
           {/* Product Info */}
           <div className="flex flex-col">

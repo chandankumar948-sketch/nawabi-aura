@@ -114,3 +114,42 @@
     background: linear-gradient(to left, transparent, rgba(201,168,76,0.5));
   }
 }
+
+/* ── Product card second frame ──
+   Cards for products shot more than once show an alternate frame.
+   Pointer devices reveal it on hover; touch devices have no hover, so it
+   cross-fades on a slow loop instead. Motion is dropped entirely for
+   visitors who ask for reduced motion. */
+.card-alt-frame {
+  opacity: 0;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+@media (hover: hover) {
+  .group:hover .card-alt-frame {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Touch devices: rotate only while the card is actually on screen, so a long
+   grid isn't animating cards the shopper can't see. `is-rotating` is applied by
+   CardAltFrame via IntersectionObserver. */
+@media (hover: none) {
+  .card-alt-frame.is-rotating {
+    animation: cardAltFrame 7s ease-in-out infinite;
+  }
+}
+
+@keyframes cardAltFrame {
+  0%, 12% { opacity: 0; }
+  38%, 62% { opacity: 1; }
+  88%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-alt-frame {
+    animation: none;
+    transition: none;
+  }
+}

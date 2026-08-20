@@ -99,8 +99,8 @@ export default function AboutPage() {
             </div>
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1571513800374-df1bbe650e56?w=800&q=80"
-                alt="Chikankari Craftsmanship"
+                src="/images/about-chikankari-craft.webp"
+                alt="Close-up of hand-embroidered Lucknowi Chikankari work on georgette"
                 fill
                 className="object-cover"
               />
