@@ -1,6 +1,5 @@
 "use client";
-import { Suspense, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import { sortedProducts } from "@/data/products";
 
@@ -23,11 +22,21 @@ const CATEGORY_PARAMS: Record<string, string> = {
   palazzo: "Palazzo Sets",
 };
 
-function ShopGrid() {
-  const searchParams = useSearchParams();
-  const initialCategory =
-    CATEGORY_PARAMS[searchParams.get("category") ?? ""] ?? "All";
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
+export default function ShopPage() {
+  // Start on "All" so the static export prerenders the full grid — reading the
+  // param with useSearchParams() instead would push the whole page behind a
+  // Suspense boundary and ship an empty /shop.html. The footer's ?category=
+  // links are applied on mount, before paint.
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("category");
+    const mapped = CATEGORY_PARAMS[param ?? ""];
+    // Syncing from the URL, which is only readable after mount — deriving this
+    // during render would desync the prerendered HTML from the first paint.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (mapped) setActiveCategory(mapped);
+  }, []);
 
   const filteredProducts = sortedProducts.filter((p) => {
     if (activeCategory === "All") return true;
@@ -89,13 +98,5 @@ function ShopGrid() {
         </div>
       )}
     </div>
-  );
-}
-
-export default function ShopPage() {
-  return (
-    <Suspense>
-      <ShopGrid />
-    </Suspense>
   );
 }
