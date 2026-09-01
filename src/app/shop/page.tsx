@@ -1,29 +1,43 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { sortedProducts } from "@/data/products";
 
 const categories = [
   "All",
   "Short Kurtis",
   "Long Kurtis",
+  "Kurti Sets",
   "Palazzo Sets",
   "Under ₹999",
   "Best Sellers",
   "New Arrivals",
 ];
 
-export default function ShopPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+/** `?category=` values used by the footer links, mapped to filter labels. */
+const CATEGORY_PARAMS: Record<string, string> = {
+  short: "Short Kurtis",
+  long: "Long Kurtis",
+  "kurti-set": "Kurti Sets",
+  palazzo: "Palazzo Sets",
+};
 
-  const filteredProducts = products.filter((p) => {
+function ShopGrid() {
+  const searchParams = useSearchParams();
+  const initialCategory =
+    CATEGORY_PARAMS[searchParams.get("category") ?? ""] ?? "All";
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+
+  const filteredProducts = sortedProducts.filter((p) => {
     if (activeCategory === "All") return true;
     if (activeCategory === "Short Kurtis") return p.category === "short";
     if (activeCategory === "Long Kurtis") return p.category === "long";
+    if (activeCategory === "Kurti Sets") return p.category === "kurti-set";
     if (activeCategory === "Palazzo Sets") return p.category === "palazzo";
     if (activeCategory === "Under ₹999") return p.price < 1000;
-    if (activeCategory === "Best Sellers") return p.badge === "Best Seller";
-    if (activeCategory === "New Arrivals") return p.badge === "New Arrival";
+    if (activeCategory === "Best Sellers") return Boolean(p.bestSeller);
+    if (activeCategory === "New Arrivals") return Boolean(p.newArrival);
     return true;
   });
 
@@ -75,5 +89,13 @@ export default function ShopPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense>
+      <ShopGrid />
+    </Suspense>
   );
 }

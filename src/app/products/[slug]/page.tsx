@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { products } from "@/data/products";
+import { products, productBadge } from "@/data/products";
 import { notFound } from "next/navigation";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import WhatsAppLink from "@/components/WhatsAppLink";
@@ -41,7 +41,7 @@ export default async function ProductPage({
           <ProductGallery
             images={product.images}
             alt={product.name}
-            badge={product.badge}
+            badge={productBadge(product)}
           />
 
           {/* Product Info */}
@@ -109,6 +109,7 @@ export default async function ProductPage({
               className="pt-6 space-y-3 text-sm"
             >
               {[
+                { label: "Colour", value: product.colour },
                 { label: "Fabric", value: product.fabric },
                 { label: "Work", value: product.work },
                 { label: "Fit", value: product.fit },
@@ -118,6 +119,7 @@ export default async function ProductPage({
                 { label: "Occasion", value: product.occasion },
                 { label: "Care", value: product.care },
                 { label: "Sizes", value: product.sizes.join(", ") },
+                { label: "Country of Origin", value: product.countryOfOrigin },
               ].map((detail) => (
                 <div key={detail.label} className="flex gap-3">
                   <span className="text-white/40 w-24 flex-shrink-0">{detail.label}</span>
@@ -137,8 +139,8 @@ export default async function ProductPage({
         }}
         className="fixed bottom-0 left-0 right-0 backdrop-blur-sm p-4 flex items-center gap-4 lg:hidden z-40"
       >
-        <div>
-          <p className="text-white text-sm font-medium">{product.name}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-white text-sm font-medium truncate">{product.name}</p>
           <p style={{ color: "var(--color-gold)" }} className="font-bold">
             ₹{product.price.toLocaleString()}
           </p>
@@ -146,8 +148,9 @@ export default async function ProductPage({
         <WhatsAppLink
           message={whatsappMessage}
           source="product_detail_sticky"
-          className="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-3 rounded-full transition-colors text-sm"
+          className="flex-shrink-0 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-3 rounded-full transition-colors text-sm whitespace-nowrap"
         >
+          <WhatsAppIcon className="w-4 h-4 flex-shrink-0" />
           Order on WhatsApp
         </WhatsAppLink>
       </div>

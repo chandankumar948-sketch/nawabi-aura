@@ -2,24 +2,26 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { products, Product } from "@/data/products";
+import { sortedProducts, productBadge, Product } from "@/data/products";
 import { buildWhatsAppLink, trackWhatsAppClick } from "@/lib/whatsapp";
 import WhatsAppIcon from "./WhatsAppIcon";
 import CardAltFrame from "./CardAltFrame";
 
 const TABS = [
-  { label: "All", filter: (p: Product) => true },
+  { label: "All", filter: () => true },
   { label: "Short Kurtis", filter: (p: Product) => p.category === "short" },
   { label: "Long Kurtis", filter: (p: Product) => p.category === "long" },
+  { label: "Kurti Sets", filter: (p: Product) => p.category === "kurti-set" },
   { label: "Palazzo Sets", filter: (p: Product) => p.category === "palazzo" },
   { label: "Under ₹999", filter: (p: Product) => p.price < 1000 },
-  { label: "Best Sellers", filter: (p: Product) => p.badge === "Best Seller" },
-  { label: "New Arrivals", filter: (p: Product) => p.badge === "New Arrival" },
+  { label: "Best Sellers", filter: (p: Product) => Boolean(p.bestSeller) },
+  { label: "New Arrivals", filter: (p: Product) => Boolean(p.newArrival) },
 ];
 
 function ShopCard({ product }: { product: Product }) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [ordered, setOrdered] = useState(false);
+  const badge = productBadge(product);
 
   function handleOrder() {
     const sizeText = selectedSize ? `*Size:* ${selectedSize}` : "*Size:* (please reply with S/M/L/XL)";
@@ -51,12 +53,12 @@ function ShopCard({ product }: { product: Product }) {
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         )}
-        {product.badge && (
+        {badge && (
           <span
             style={{ backgroundColor: "var(--color-gold)", color: "var(--color-brand-black)" }}
             className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wide"
           >
-            {product.badge}
+            {badge}
           </span>
         )}
         {!product.available && (
@@ -144,7 +146,7 @@ function ShopCard({ product }: { product: Product }) {
 export default function HomeShopSection() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const filtered = products.filter(TABS[activeTab].filter);
+  const filtered = sortedProducts.filter(TABS[activeTab].filter);
 
   return (
     <section className="py-20 px-4" style={{ background: "linear-gradient(180deg, #0D0B07 0%, #1a1208 40%, #0D0B07 100%)" }}>

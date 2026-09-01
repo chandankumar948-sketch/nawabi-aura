@@ -13,13 +13,15 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Product catalog
 
-Products live in `src/data/products.ts` as a typed array (`Product[]`), covering three categories: `short` and `long` kurtis, and `palazzo` (kurta + palazzo + dupatta sets). `catalog-sample.csv` mirrors the same rows in CSV form for bulk editing/import — when you add or edit products, keep both in sync.
+Products live in `src/data/products.ts` as a typed array (`Product[]`), covering four categories: `short` and `long` kurtis, `kurti-set` (georgette kurti with matching pants or inner slip), and `palazzo` (kurta + palazzo + dupatta sets). `catalog-sample.csv` mirrors the same rows in CSV form for bulk editing/import — when you add or edit products, keep both in sync.
+
+Cards and the product gallery show at most one ribbon, derived by `productBadge()` from the `bestSeller` / `newArrival` flags — `Best Seller` wins when a product is both. `sortedProducts` is the display order used by the shop page and homepage grid: products with a `ranking` from the master sheet come first in ascending order, and everything unranked follows in catalog order.
 
 Product images are either remote URLs or local files under `public/images/<category>/`. Local images should already be cropped to a 3:4 aspect ratio to match the product card/detail layout.
 
 The `reviews` array (same file) powers the homepage testimonials and `/reviews` page. It's empty by default — only add reviews for products that currently exist in `products`.
 
-Adding a new category (beyond short/long/palazzo) means updating the `Product.category` union and the filters in `src/app/shop/page.tsx`, `src/components/HomeShopSection.tsx`, and the footer link in `src/components/Footer.tsx`.
+Adding a new category (beyond short/long/kurti-set/palazzo) means updating the `Product.category` union, the filters in `src/app/shop/page.tsx` (both the `categories` list and `CATEGORY_PARAMS`, which maps the footer's `?category=` values onto filter labels), `src/components/HomeShopSection.tsx`, and the footer link in `src/components/Footer.tsx`.
 
 ## Service worker
 

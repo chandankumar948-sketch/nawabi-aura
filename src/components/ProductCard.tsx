@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Product } from "@/data/products";
+import { Product, productBadge } from "@/data/products";
 import WhatsAppIcon from "./WhatsAppIcon";
 import WhatsAppLink from "./WhatsAppLink";
 import CardAltFrame from "./CardAltFrame";
@@ -11,6 +11,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const whatsappMessage = `Hi! I'm interested in ordering the *${product.name}* (₹${product.price}). Could you please help me with sizes and availability?`;
+  const badge = productBadge(product);
 
   return (
     <div
@@ -32,12 +33,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             sizes="(max-width: 768px) 50vw, 33vw"
           />
         )}
-        {product.badge && (
+        {badge && (
           <span
             style={{ backgroundColor: "var(--color-gold)", color: "var(--color-brand-black)" }}
             className="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full"
           >
-            {product.badge}
+            {badge}
           </span>
         )}
         {!product.available && (
